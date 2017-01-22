@@ -11,9 +11,9 @@ public class BulleAvatar01 : MonoBehaviour {
     public int programState;
 
     //variables for the avatar rotation
-    public bool rotate = false;
-    public Transform initialRotation;
-    public Transform secondRotation;
+    public bool rotate = true;
+    //public Transform initialRotation;
+    //public Transform secondRotation;
 
     //variables for the avatar movment
     public Vector3 startPosition;
@@ -30,8 +30,12 @@ public class BulleAvatar01 : MonoBehaviour {
 
         //for the avatar movment
         speed = 0.7F;
+
         startPosition = avatar.transform.position;
         endPosition = avatar.transform.position + new Vector3(-5, 0, 0);
+
+        avatar.transform.rotation = Quaternion.Euler(0, 90, 0);
+
         startTime = Time.time;
         journeyLength = Vector3.Distance(startPosition, endPosition);
     }
@@ -43,7 +47,15 @@ public class BulleAvatar01 : MonoBehaviour {
 
             if (rotate == true)
             {
+                //avatar.transform.rotation = Quaternion.Euler(0, -90, 0);
 
+                avatar.transform.rotation = Quaternion.Lerp(avatar.transform.rotation, Quaternion.Euler(0, -90, 0), Time.deltaTime * 10);
+
+                if (avatar.transform.rotation == Quaternion.Euler(0, -90, 0))
+                {
+                    rotate = false;
+                    startTime = Time.time;
+                }
             }
             else
             {
@@ -63,7 +75,15 @@ public class BulleAvatar01 : MonoBehaviour {
         {
             if(rotate == true)
             {
+                //avatar.transform.rotation = Quaternion.Euler(0, 90, 0);
 
+                avatar.transform.rotation = Quaternion.Lerp(avatar.transform.rotation, Quaternion.Euler(0, 90, 0), Time.deltaTime * 10);
+
+                if (avatar.transform.rotation == Quaternion.Euler(0, 90, 0))
+                {
+                    rotate = false;
+                    startTime = Time.time;
+                }
             }
             else
             {
@@ -94,9 +114,11 @@ public class BulleAvatar01 : MonoBehaviour {
             anim.SetBool("walkToIdle2", false);
             anim.SetBool("idle2ToWalk", true);
 
-            startTime = Time.time;
+            //startTime = Time.time;
 
             endPosition = startPosition + new Vector3(-5, 0, 0);
+
+            rotate = true;
         }
     }
 
@@ -109,9 +131,11 @@ public class BulleAvatar01 : MonoBehaviour {
             anim.SetBool("walkToIdle2", false);
             anim.SetBool("idle2ToWalk", true);
 
-            startTime = Time.time;
+            //startTime = Time.time;
 
             endPosition = avatar.transform.position;
+
+            rotate = true;
         }
     }
 }
