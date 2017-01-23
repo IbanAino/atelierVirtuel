@@ -29,7 +29,7 @@ public class Teleportation : MonoBehaviour {
             {
                 if (hit.collider != null)
                 {
-                    Debug.Log(hit.collider.gameObject.name);
+                    //Debug.Log(hit.collider.gameObject.name);
 
                     if (hit.collider.gameObject.CompareTag("Floor") == true)
                     {
@@ -53,33 +53,21 @@ public class Teleportation : MonoBehaviour {
 
             if (teleportationAllowed == true)// Show the enabled target
             {
-                //GameObject.FindWithTag("TeleportationTarget").GetComponentInChildren<SpriteRenderer>().enabled = true;
-                //GameObject.FindWithTag("TeleportationTarget").transform.position = newPlayerPosition + new Vector3(0, 0.01f, 0);
-                //GameObject.FindWithTag("TeleportationTarget").transform.rotation = Quaternion.Euler(90, 0, 0);
                 target.GetComponentInChildren<SpriteRenderer>().enabled = true;
                 target.transform.position = newPlayerPosition + new Vector3(0, 0.01f, 0);
                 target.transform.rotation = Quaternion.Euler(90, 0, 0);
 
                 lineRenderer.startColor = new Color(0, 1, 0);
-
-                //GameObject.FindWithTag("TeleportationTargetNotEnable").GetComponent<SpriteRenderer>().enabled = false;
             }
             else// Show the not enabled target
             {
-                //GameObject.FindWithTag("TeleportationTargetNotEnable").GetComponent<SpriteRenderer>().enabled = true;
-                //GameObject.FindWithTag("TeleportationTargetNotEnable").transform.position = newPlayerPosition + new Vector3(0, 0.01f, 0);
-                //GameObject.FindWithTag("TeleportationTargetNotEnable").transform.rotation = Quaternion.Euler(90, 0, 0);
                 lineRenderer.startColor = new Color(1, 0, 0);
-
-                //GameObject.FindWithTag("TeleportationTarget").GetComponentInChildren<SpriteRenderer>().enabled = false;
                 target.GetComponentInChildren<SpriteRenderer>().enabled = false;
             }
         }
         else
         {
-            //GameObject.FindWithTag("TeleportationTarget").GetComponentInChildren<SpriteRenderer>().enabled = false;
-            target.GetComponentInChildren<SpriteRenderer>().enabled = false;
-            //GameObject.FindWithTag("TeleportationTargetNotEnable").GetComponent<SpriteRenderer>().enabled = false;
+            target.GetComponentInChildren<SpriteRenderer>().enabled = false;;
 
             lineRenderer.enabled = false;
         }
