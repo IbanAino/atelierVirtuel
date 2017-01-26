@@ -10,6 +10,6 @@ public class CameraCollider : MonoBehaviour {
         if(collision.gameObject.CompareTag("ChangeSceneSphere01") == true)
             SceneManager.LoadScene("Scene 02");
 
-        Debug.Log(collision.gameObject.name);        
+        //Debug.Log(collision.gameObject.name);        
     }
 }

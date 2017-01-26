@@ -6,11 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene01 : MonoBehaviour {
 
+    public GameObject gameController;
+
     private void OnCollisionEnter(Collision collision)
     {
-         if(collision.gameObject.CompareTag("MainCamera"))
-            SceneManager.LoadScene("Scene 02", LoadSceneMode.Additive);
+        if (collision.gameObject.CompareTag("MainCamera"))
+        {
+            ChangeScene();
+            //SceneManager.LoadScene("Scene 02", LoadSceneMode.Additive);
+        }           
+    }
 
-        Debug.Log(collision.gameObject.name);
+    IEnumerator ChangeScene()
+    {
+        float fadeTime = gameController.GetComponent<Fading>().BeginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene("Scene 02", LoadSceneMode.Additive);
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionsDetections : MonoBehaviour {
+public class HandleGameObjects : MonoBehaviour {
+
 
     public GameObject tuchedGameObject = null;
 
@@ -15,20 +16,21 @@ public class CollisionsDetections : MonoBehaviour {
     public GameObject target;
 
     public GameObject[] selectionnablesGamesObjects;
-    public string[] tags;
+    //public string[] tags;
 
-    void Start () {
+    void Start()
+    {
         controller = GameObject.FindWithTag("rightController");
 
         //Make an array with all the selectionnables GameObjects
         //Find the GameObject's tags to use them into the script
-        tags = new string [selectionnablesGamesObjects.Length];
+        //tags = new string[selectionnablesGamesObjects.Length];
 
-        for (int i = 0; i < selectionnablesGamesObjects.Length; i++)
+        /*for (int i = 0; i < selectionnablesGamesObjects.Length; i++)
         {
-            if(selectionnablesGamesObjects[i] != null)
+            if (selectionnablesGamesObjects[i] != null)
                 tags[i] = selectionnablesGamesObjects[i].tag;
-        }             
+        }*/
     }
 
     private void Update()
@@ -40,11 +42,11 @@ public class CollisionsDetections : MonoBehaviour {
         {
             if (tuchedGameObject != null)
             {
-                if(doOnce == true)
+                if (doOnce == true)
                 {
                     target.transform.position = tuchedGameObject.transform.position;
                     target.transform.rotation = tuchedGameObject.transform.rotation;
-                    doOnce = false;                   
+                    doOnce = false;
                 }
                 else
                 {
@@ -55,8 +57,8 @@ public class CollisionsDetections : MonoBehaviour {
         }
         else
         {
-            if(doOnce == false)
-                if(tuchedGameObject != null)
+            if (doOnce == false)
+                if (tuchedGameObject != null)
                     tuchedGameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
             doOnce = true;
@@ -64,23 +66,29 @@ public class CollisionsDetections : MonoBehaviour {
 
     }
 
-    //détecter l'objet touché
     void OnTriggerEnter(Collider other)
     {
-        if(!triggerPressed)
+        if (!triggerPressed)
         {
-            for(int i = 0; i < tags.Length; i++)
+            for (int i = 0; i < selectionnablesGamesObjects.Length; i++)
             {
-                if(tags[i] != null)
-                    if (other.CompareTag(tags[i]) && other.CompareTag("Untagged") == false)
+                if (selectionnablesGamesObjects[i] != null)
+                    if (selectionnablesGamesObjects[i] == other.gameObject)
                         tuchedGameObject = other.gameObject;
+
             }
         }
+
+        if (other.gameObject == selectionnablesGamesObjects[1])
+            Debug.Log("Charlotte");
+
+        Debug.Log(tuchedGameObject);
+        Debug.Log(other.gameObject);
     }
 
     void OnTriggerExit(Collider other)
     {
-        if(!triggerPressed)
+        if (!triggerPressed)
         {
             if (tuchedGameObject == other.gameObject)
             {
